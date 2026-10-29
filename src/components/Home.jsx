@@ -1,7 +1,6 @@
 import styles from "./Home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
 const API_URL = "http://localhost:3000/";
@@ -23,23 +22,29 @@ export default function Home() {
     const file = e.target.files[0];
     if (!file) return;
 
-    setPreviewUrl(URL.createObjectURL(file)); // show the image immediately
+    setPreviewUrl(URL.createObjectURL(file));
 
     const formData = new FormData();
-    formData.append("image", file); // must match upload.single("image")
+    formData.append("image", file);
 
     setLoading(true);
     setError("");
     setVehicleType("");
+    setProbability("");
 
     try {
       const res = await fetch(API_URL, { method: "POST", body: formData });
-      if (!res.ok) throw new Error("Classification failed");
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || "Classification failed");
+      }
+
       const data = await res.json();
       setVehicleType(data["Vehicle Type"]);
       setProbability((data.Probability * 100).toFixed(0));
     } catch (err) {
-      setError("Could not classify the image. Please try again.");
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -73,9 +78,9 @@ export default function Home() {
             <input
               id="carImage"
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/bmp,image/gif"
               onChange={handleImageChange}
-              hidden
+              className={styles.visuallyHidden}
             />
             {previewUrl && (
               <img
@@ -88,11 +93,18 @@ export default function Home() {
           <div className={styles.vehicleTypeContainer}>
             <p>Your vehicle type is:</p>
             <p className={styles.vehicleTypeText}>
-              {loading ? "Analysing..." : error || vehicleType}
+              {loading
+                ? "Analysing..."
+                : error ||
+                  (vehicleType === "Not-a-car"
+                    ? "It is not a car! please upload a photo of a car"
+                    : vehicleType)}
             </p>
             <p>With the probability of:</p>
             <p className={styles.vehicleTypePercentage}>
-              {probability && `${probability}%`}
+              {vehicleType === "Not-a-car"
+                ? ""
+                : probability && `${probability}%`}
             </p>
           </div>
         </div>

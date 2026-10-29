@@ -61,6 +61,15 @@
   margin-left: 0.5rem;
 }
 
+/* Accessibility - for keyboard users */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
 .vehicleTypeContainer {
   border: 2px solid #0073cf;
   border-radius: 10px;
