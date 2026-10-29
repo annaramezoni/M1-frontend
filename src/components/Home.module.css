@@ -1,0 +1,54 @@
+.navbar1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+}
+
+.loginContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.loginContainer a {
+  color: #0073cf;
+  cursor: pointer;
+}
+
+.navbar2 {
+  background-color: #0073cf;
+  min-height: 3rem;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  gap: 2rem;
+}
+
+.imageInput {
+  border: 2px solid #0073cf;
+  border-radius: 10px;
+  min-width: 16rem;
+  min-height: 16rem;
+  display: flex;
+  flex-basis: 30%;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.vehicleTypeContainer {
+  border: 2px solid #0073cf;
+  border-radius: 10px;
+  min-width: 16rem;
+  min-height: 16rem;
+  display: flex;
+  flex-basis: 30%;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
