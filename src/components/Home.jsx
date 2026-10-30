@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
-const API_URL = "http://localhost:3000/";
+const API_URL =
+  "https://m1-backend-bwdqevgac5c6cugs.newzealandnorth-01.azurewebsites.net/";
 
 export default function Home() {
   const [vehicleType, setVehicleType] = useState("");
